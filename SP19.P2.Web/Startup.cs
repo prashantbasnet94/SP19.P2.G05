@@ -13,7 +13,7 @@ namespace SP19.P2.Web
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            DataContext db =new DataContext() ;
+           
            
 
             
@@ -51,6 +51,22 @@ namespace SP19.P2.Web
             {
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
+            }
+
+            //using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            //{
+            //    //var context = serviceScope.ServiceProvider.GetRequiredService<DataContext>();
+            //    //// context.Database.Migrate();
+            //    //context.Database.EnsureCreated();
+
+
+
+            //}
+
+            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                var context = serviceScope.ServiceProvider.GetRequiredService<DataContext>();
+                context.Database.EnsureCreated();
             }
 
             app.UseHttpsRedirection();
