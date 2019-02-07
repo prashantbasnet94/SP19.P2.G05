@@ -16,6 +16,7 @@ namespace SP19.P2.Web.Model
         public string Description { get; set; }
         public int Price { get; set; }
 
-        //Find way to store picture then done
+        public string Picture { get; set; }
+        public List<MenuJoinMenuItem> MenuJoinMenuItems { get; set; }
     }
 }

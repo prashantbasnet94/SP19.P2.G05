@@ -10,9 +10,9 @@ namespace SP19.P2.Web.Model
     {
         [Key]
         public int MenuId { get; set; }
-        [MaxLength(6)]
+        [MaxLength(26)]
         public string Name { get; set; } //3 different menus Lunch, Dinner, Desert
 
-        public List<MenuItem> MenuItems { get; set; }
+        public List<MenuJoinMenuItem> MenuJoinMenuItems { get; set; }
     }
 }

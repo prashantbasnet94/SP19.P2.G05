@@ -10,8 +10,9 @@ namespace SP19.P2.Web.Model
     {
         [Key]
         public int TableId { get; set; }
-        [MaxLength(5)]
+       
         public string TableType { get; set; } //Example: Booth or Table or Bar
         public int NumberOfSeats { get; set; }
+        public List<TableBill> TableBills { get; set; }
     }
 }

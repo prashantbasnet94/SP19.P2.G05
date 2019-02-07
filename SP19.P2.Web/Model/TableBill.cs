@@ -10,20 +10,18 @@ namespace SP19.P2.Web.Model
     {
         [Key]
         public int TableBillId { get; set; }
-        public Customer Customer { get; set; }
+        public int Customer { get; set; }
         //Don't know if we should use DateTime or DateTimeOffet
         //Have DateTimeOffset for now.
         [Required]
         public DateTimeOffset StartTime { get; set; }
         [Required]
         public DateTimeOffset EndTime { get; set; }
-        public TableFoodItem TableFoodItem { get; set; }
+        public int TableFoodItemId { get; set; }
 
         //Foriegn Keys
-        public Table Table { get; set; } //What table are they sitting at
+        public int TableId { get; set; } //What table are they sitting at
         
-        public List<TableFoodItem> TableFoodItems { get; set; }
         
-        public List<Customer> Customers { get; set; }
     }
 }

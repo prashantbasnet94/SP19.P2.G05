@@ -13,6 +13,13 @@ namespace SP19.P2.Web
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            DataContext db =new DataContext() ;
+           
+
+            
+
+
+
         }
 
         public IConfiguration Configuration { get; }
@@ -28,6 +35,8 @@ namespace SP19.P2.Web
 
             services.AddDbContext<DataContext>
                 (options => options.UseSqlServer(connection));
+
+
 
         }
 
@@ -47,5 +56,6 @@ namespace SP19.P2.Web
             app.UseHttpsRedirection();
             app.UseMvc();
         }
+
     }
 }

@@ -23,8 +23,10 @@ namespace SP19.P2.Web.Model
         //public int AddressId { get; set; }
         public Address Address { get; set; }
 
-
-        public Role Role { get; set; }
+        //role id
+        public int  role { get; set; }
+      
         public List<Role> Roles { get; set; } //If User has multiple roles.
+
     }
 }
