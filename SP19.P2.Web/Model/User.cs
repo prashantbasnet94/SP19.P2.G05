@@ -21,12 +21,11 @@ namespace SP19.P2.Web.Model
         public string Phone { get; set; }
 
         //public int AddressId { get; set; }
-        public Address Address { get; set; }
+        public MailingAddress Address { get; set; }
 
-        //role id
-        public int  role { get; set; }
+       
       
-        public List<Role> Roles { get; set; } //If User has multiple roles.
+        public List<UserRole> UserRoles { get; set; } //If User has multiple roles.
 
     }
 }

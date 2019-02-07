@@ -16,6 +16,6 @@ namespace SP19.P2.Web.Model
         public string TokenizedCardReference { get; set; } //Also known as transaction ID. See: https://www.paypal.com/us/smarthelp/article/what-are-reference-transactions-(tokenization)-ts1469
         
         //Foriegn keys
-        public Address BillingAddress { get; set; }
+        public int BillingAddressId { get; set; }
     }
 }

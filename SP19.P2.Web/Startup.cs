@@ -13,10 +13,10 @@ namespace SP19.P2.Web
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-           
+
            
 
-            
+
 
 
 
@@ -29,14 +29,17 @@ namespace SP19.P2.Web
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+            services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DataContext")));
 
+
+            /*
             //connectionStrings
             var connection = @"Server=(localdb)\mssqllocaldb;Database=SP19-P2-G05;Trusted_Connection=True;ConnectRetryCount=0";
 
             services.AddDbContext<DataContext>
                 (options => options.UseSqlServer(connection));
 
-
+             */
 
         }
 

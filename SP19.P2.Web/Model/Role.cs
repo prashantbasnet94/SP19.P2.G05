@@ -14,6 +14,7 @@ namespace SP19.P2.Web.Model
         public string Name { get; set; }
         [MaxLength(256)]
         public string Description { get; set; }
+        public List<UserRole> UserRoles { get; set; }
 
     }
 }
