@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SP19.P03.Web.Data;
+using SP19.P03.Web.Dto;
 using SP19.P03.Web.Features.Customers;
+
 
 namespace SP19.P03.Web.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("Customer")]
     [ApiController]
     public class CustomerController : ControllerBase
     {
@@ -21,17 +23,16 @@ namespace SP19.P03.Web.Controllers
             _context = context;
         }
 
-        // GET: api/Customer
+        // GET: api/Customers
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Customer>>> GetCustomer()
+        public async Task<ActionResult<IEnumerable<CustomerDto>>> GetCustomer()
         {
-
-            return await _context.Customer.ToListAsync();
+            return new List<CustomerDto>();
         }
 
-        // GET: api/Customer/5
+        // GET: api/Customers/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Customer>> GetCustomer(int id)
+        public async Task<ActionResult<CustomerDto>> GetCustomer(int id)
         {
             var customer = await _context.Customer.FindAsync(id);
 
@@ -40,10 +41,11 @@ namespace SP19.P03.Web.Controllers
                 return NotFound();
             }
 
-            return customer;
+            //return customer;
+            return new CustomerDto();
         }
 
-        // PUT: api/Customer/5
+        // PUT: api/Customers/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCustomer(int id, Customer customer)
         {
@@ -73,17 +75,17 @@ namespace SP19.P03.Web.Controllers
             return NoContent();
         }
 
-        // POST: api/Customer
+        // POST: api/Customers
         [HttpPost]
-        public async Task<ActionResult<Customer>> PostCustomer(Customer customer)
+        public async Task<ActionResult<CustomerDto>> PostCustomer(Customer customer)
         {
             _context.Customer.Add(customer);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCustomer", new { id = customer.Id }, customer);
+            return new CustomerDto();
         }
 
-        // DELETE: api/Customer/5
+        // DELETE: api/Customers/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<Customer>> DeleteCustomer(int id)
         {
