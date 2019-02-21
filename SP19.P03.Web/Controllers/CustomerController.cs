@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -17,24 +18,28 @@ namespace SP19.P03.Web.Controllers
     public class CustomerController : ControllerBase
     {
         private readonly DataContext _context;
+        private readonly IMapper _mapper;
 
-        public CustomerController(DataContext context)
+        public CustomerController(DataContext context,IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;  
         }
 
         // GET: api/Customers
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CustomerDto>>> GetCustomer()
+        public ActionResult<IEnumerable<CustomerDto>> ListAll()
         {
-            return new List<CustomerDto>();
+            var customer = _context.Customer;
+
+            return Ok(_mapper.Map<IEnumerable<CustomerDto>>(customer));
         }
 
         // GET: api/Customers/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<CustomerDto>> GetCustomer(int id)
+        public  ActionResult<CustomerDto> GetCustomer(int id)
         {
-            var customer = await _context.Customer.FindAsync(id);
+            var customer = _context.Customer.FindAsync(id);
 
             if (customer == null)
             {
@@ -42,23 +47,30 @@ namespace SP19.P03.Web.Controllers
             }
 
             //return customer;
-            return new CustomerDto();
+            return Ok(_mapper.Map<CustomerDto>(customer));
         }
 
         // PUT: api/Customers/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCustomer(int id, Customer customer)
+        public async Task<IActionResult> PutCustomer(int id, CustomerDto customerDto)
         {
+
+            var customer = _context.Customer.FindAsync(id);
+
             if (id != customer.Id)
             {
                 return BadRequest();
             }
+
+            await _mapper.Map(customerDto, customer);
 
             _context.Entry(customer).State = EntityState.Modified;
 
             try
             {
                 await _context.SaveChangesAsync();
+
+                return Ok(_mapper.Map<CustomerDto>(customer));
             }
             catch (DbUpdateConcurrencyException)
             {

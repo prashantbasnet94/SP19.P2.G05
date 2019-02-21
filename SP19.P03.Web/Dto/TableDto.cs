@@ -9,6 +9,6 @@ namespace SP19.P03.Web.Dto
     {
        
         public uint NumberOfSeats { get; set; }
-        public int Id { get; internal set; }
+       
     }
 }

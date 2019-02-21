@@ -1,11 +1,14 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SP19.P03.Web.Data;
+using SP19.P03.Web.Dto;
 using Swashbuckle.AspNetCore.Swagger;
+
 
 namespace SP19.P03.Web
 {
@@ -31,6 +34,23 @@ namespace SP19.P03.Web
             {
                 c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
             });
+
+            //AutoMapper th
+
+            var mappingConfig = new AutoMapper.MapperConfiguration(mc =>
+            {
+             //   mc.AddProfiles(typeof(Startup).Assembly);
+                mc.AddProfiles(typeof(AutoMapperPorfile).Assembly);
+                //mc.AddProfiles(new AutoMapperPorfile);
+            });
+
+            var mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
+
+          //  AutoMapper.Mapper.Initialize(cfg => cfg.AddProfile<AutoMapperPorfile>());
+
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

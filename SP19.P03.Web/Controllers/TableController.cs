@@ -8,55 +8,69 @@ using Microsoft.EntityFrameworkCore;
 using SP19.P03.Web.Data;
 using SP19.P03.Web.Features.Tables;
 using SP19.P03.Web.Dto;
+using AutoMapper;
+using System.Diagnostics;
 
 namespace SP19.P03.Web.Controllers
 {
-    [Route("Table")]
+    [Route("api/[controller]")]
     [ApiController]
     public class TableController : ControllerBase
     {
         private readonly DataContext _context;
+        private readonly IMapper _mapper;
 
-        public TableController(DataContext context)
+        public TableController(DataContext context,IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: api/Tables
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TableDto>>> GetTable()
+        public ActionResult<IEnumerable<TableDto>> ListAll()
         {
-            return new List<TableDto>();
+
+            var table = _context.Table;
+            //    return
+            return Ok(_mapper.Map<IEnumerable<TableDto>>(table));
+            // return await new List<TableDto>();
         }
 
         // GET: api/Tables/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<TableDto>> GetTable(int id)
+        public async Task<ActionResult<TableDto>> List(int id)
         {
+           
             var table = await _context.Table.FindAsync(id);
 
             if (table == null)
             {
                 return NotFound();
             }
-
-            return new TableDto();
+            Debug.WriteLine("<<<<<<<<<<<<<Inside line id>>>>>>>>");
+            return Ok(_mapper.Map<TableDto>(table));
         }
 
         // PUT: api/Tables/5
         [HttpPut("{id}")]
-        public async Task<ActionResult<TableDto>> PutTable(int id, Table table)
+        public async Task<ActionResult<TableDto>> PutTable(int id, TableDto tableDto)
         {
+
+            var table = await _context.Table.FindAsync(id);
             if (id != table.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(table).State = EntityState.Modified;
+            _mapper.Map(tableDto, table);
+
+          // _context.Entry(table).State = EntityState.Modified;
 
             try
             {
                 await _context.SaveChangesAsync();
+                return Ok(_mapper.Map<TableDto>(table));
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -70,7 +84,7 @@ namespace SP19.P03.Web.Controllers
                 }
             }
 
-            return NoContent();
+           // return NoContent();
         }
 
         // POST: api/Tables

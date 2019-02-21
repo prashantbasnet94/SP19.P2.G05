@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+ 
 
 namespace SP19.P03.Web.Controllers
 {
@@ -16,6 +18,7 @@ namespace SP19.P03.Web.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
+ 
             return new[] { "value1", "value2" };
         }
     }
