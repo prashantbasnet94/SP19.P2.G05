@@ -1,0 +1,13 @@
+{
+  "folders": [
+    {
+      "path": "SP19.P05.Web\\ClientApp"
+    }
+  ],
+  "settings": {
+    "files.exclude": {
+      "build": true
+    },
+    "editor.tabSize": 2
+  }
+}
